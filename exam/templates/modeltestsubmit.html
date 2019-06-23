@@ -1,0 +1,250 @@
+{% extends 'Subinfo/sbase.html' %}
+
+{% block head %}
+<a class="navbar-brand" href="/info/subtopic/">upload_topic</a>
+<a class="navbar-brand" href="/info/basic-upload/">upload_content</a>
+{%endblock%}
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+
+            <label for="subjects">subject</label>
+            <select id="subjects" onchange="catagory()" class="form-control" required >
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+        </div>
+        <div class="col-md-3">
+
+
+            <label for="subjects">subjectcatagory</label>
+            <select id="subcata" onchange="subcatagory()" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+        </div>
+        <div class="col-md-3">
+
+            <label for="subjects">contentcatagor</label>
+            <select id="cataE" onchange="preroot()" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md-3">
+
+            <label for="root">contentelement</label>
+            <select onchange="bcsmodel()" id="root" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+
+            </select>
+
+        </div>
+
+         <div class="form-group col-md-3">
+
+            <label for="bcs">bcs</label>
+            <select onchange="bcsversion()" id="bcs" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+
+            </select>
+
+        </div>
+        <div class="form-group col-md-3">
+
+            <label for="version">version</label>
+            <select id="version" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+    <h1 class="page-header">
+
+    </h1>
+     <div class="row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="title" placeholder="question title" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="q1" placeholder="option1" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="q2" placeholder="option2" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="q3" placeholder="option3" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="q4" placeholder="option4" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <select id="ans" class="form-control" required>
+                <option value="">ans</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+
+            </select>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <textarea class="form-control" id="box" name="exp" rows="4" placeholder="Explain" required></textarea>
+
+        </div>
+
+    </div>
+
+
+    <h1 class="page-header">
+
+    </h1>
+    <div class="row">
+        <div class="col-md-9">
+
+            <div style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-primary js-upload-photos">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+                </button>
+                <input id="fileupload" type="file" name="file" multiple accept="image/jpeg,image/png"
+                       style="display: none;"
+                       data-url="/info/basic-upload/"
+                       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+            </div>
+
+            <table id="gallery" class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>Photo</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+
+    var id=parseInt($('#version').val());
+    var qtitle=$('#title').val();
+    var q1=$('#q1').val();
+    var q2=$('#q2').val();
+    var q3=$('#q3').val();
+    var q4=$('#q4').val();
+    var ans=parseInt($('#ans').val());
+    var exp=$('#box').val();
+    var inform = {"id":id,"versionname":"preli"};
+
+    var modelquestion=[];
+      questions={
+                "title":qtitle,
+                "op1": q1,
+                "op2": q2,
+                "op3": q3,
+                "op4": q4,
+                "ans": ans,
+                "explain":exp
+      }
+    modelquestion.push(questions);
+    inform.modelquestion=modelquestion;
+    console.log(inform);
+    $.ajax({
+            type: "POST",
+            url: "/home/modelquestion/api/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success added ");
+            }
+        });
+
+
+
+
+    });
+
+
+</script>
+<script>
+    subject();
+
+
+
+</script>
+{%endblock%}

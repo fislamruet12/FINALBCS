@@ -1,0 +1,405 @@
+<!doctype html>
+{%load static %}
+<html lang="en">
+<head>
+
+    <title>BCSschool Online Preparation Tutorials </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{%static 'photos/favicons.ico' %}" type="image/x-icon">
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
+    <style>
+
+        button {
+     border:none;
+     background: rgba(255, 255, 255,0);
+    }
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+
+
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow" >
+    <a style="background-color:rgb(248, 249, 250);width: 210px;" class="navbar-brand" id="head">
+
+    </a>
+    <a style="background-color:rgb(248, 249, 250);    width: 105px;" class="navbar-brand" id="timer" href="#">
+        00 : 00 : 00</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" >
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+             </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2  d-md-block bg-light sidebar collapse navbar-collapse " id="navbarSupportedContent">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+
+                            <span data-feather="home"></span>
+                            Time <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="id1" onclick="examtimer(a=20,b={{userid}})" href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-layers">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+
+                            <span data-feather="layers"></span>
+                            20 minutes
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="id2" onclick="examtimer(a=40,b={{userid}})" href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-layers">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+
+                            <span data-feather="layers"></span>
+                            40 minutes
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="id3" onclick="examtimer(a=60,b={{userid}})" href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-layers">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+
+                            <span data-feather="layers"></span>
+                            1 hour
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="id4" data-toggle="modal" data-target="#exampleModalCenter" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+
+                            <span data-feather="bar-chart-2"></span>
+                            Result
+                        </a>
+                    </li>
+
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+
+                    </a>
+
+                </h6>
+                <ul class="nav flex-column mb-2">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="/info/homes/">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+
+                            Topic
+                        </a>
+                        <div class="dropdown-menu" id="subs" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Marks</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="rest">
+                        ...
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Excercise</h1>
+
+            </div>
+
+
+            <div id="qus">
+                <div class="row">
+                    <div class="col align-self-center" style="padding: 100px;">
+                        <h5 style="    font-weight: 400;">
+                            The authority of Bangladesh Public Service Commission(BPSC) has been changed preliminary
+                            exam marks distribution. In previews, the preliminary exam was held in about 100 marks.
+                            Now
+                            it is held on 200 marks.
+                            BCS preliminary examination is a screening test conducted on the following pattern. One
+                            mark
+                            for each correct answer but deduction of 0.5 mark for each wrong answer.<br><br>
+                            <p>বাংলাদেশ পাবলিক সার্ভিস কমিশন (বিপিএসসি) কর্তৃপক্ষের প্রাথমিক পরীক্ষার চিহ্ন বিতরণ
+                                করা
+                                হয়েছে। পূর্বরূপ, প্রাথমিক পরীক্ষার প্রায় 100 marks অনুষ্ঠিত হয়। এখন এটি 200
+                                পয়েন্ট
+                                অনুষ্ঠিত হয়। বিসিএস প্রাথমিক পরীক্ষা নিম্নলিখিত প্যাটার্নে পরিচালিত একটি স্ক্রীনিং
+                                পরীক্ষা।
+                                প্রতিটি সঠিক উত্তরের জন্য একটি চিহ্ন কিন্তু প্রতিটি ভুল উত্তরটির জন্য 0.5 টি চিহ্নের
+                                বিয়োগ।</p>
+
+                        </h5>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col align-self-center" style="padding: 100px;">
+                        <h5 style="    font-weight: 400; visibility:hide">
+                            .
+                            .
+                            .
+                            .
+                            .
+                            .
+                            .
+
+
+                        </h5>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <br><br><br>
+
+        </main>
+
+
+    </div>
+
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script src="{%static 'js/exam/exam.js'%}"></script>
+
+<script src="/static/js/jquery-3.1.1.min.js"></script>
+
+
+<!--right click
+<script language="JavaScript">
+  /**
+    * Disable right-click of mouse, F12 key, and save key combinations on page
+    * By Arthur Gareginyan (arthurgareginyan@gmail.com)
+    * For full source code, visit https://mycyberuniverse.com
+    */
+  window.onload = function() {
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    }, false);
+    document.addEventListener("keydown", function(e) {
+    //document.onkeydown = function(e) {
+      // "I" key
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        disabledEvent(e);
+      }
+      // "J" key
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+        disabledEvent(e);
+      }
+      // "S" key + macOS
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        disabledEvent(e);
+      }
+      // "U" key
+      if (e.ctrlKey && e.keyCode == 85) {
+        disabledEvent(e);
+      }
+      // "F12" key
+      if (event.keyCode == 123) {
+        disabledEvent(e);
+      }
+    }, false);
+    function disabledEvent(e){
+      if (e.stopPropagation){
+        e.stopPropagation();
+      } else if (window.event){
+        window.event.cancelBubble = true;
+      }
+      e.preventDefault();
+      return false;
+    }
+  };
+</script>
+-->
+
+<script>
+   NoQ.usid={{userid}}
+    subject();
+
+
+</script>
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>

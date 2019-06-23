@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block head %}
+<a class="navbar-brand" href="/info/subtopic/">upload_topic</a>
+<a class="navbar-brand" href="/info/basic-uploadq/">upload_question</a>
+{%endblock%}
+
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1 class="page-header">
+        Text
+        <small>/ Basic Upload</small>
+    </h1>
+
+
+    <br>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="title" placeholder="title">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md-10">
+
+            <div class="row"  id="qucontrol">
+
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <select id="boxcontrol" onchange="edicontent()" class="form-control">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+
+
+            </select>
+        </div>
+    </div>
+    <h1 class="page-header">
+
+    </h1>
+
+
+
+
+
+    <div class="row">
+        <div class="form-group col-md-2">
+            <select id="items" onchange="ediiems()" class="form-control">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+
+
+            </select>
+        </div>
+    </div>
+
+    <div id="channels">
+
+    </div>
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+    var title=$('#title').val();
+    var boxcontrol=parseInt($('#boxcontrol').val());
+    var items=parseInt($('#items').val());
+    var nr,nc;
+
+
+    var inform={'title':title}
+    var contents=[]
+    for(var i=0;i<boxcontrol;i++)
+    {
+       var passage=$('#cnt'+i).val();
+       var mean=$('#mn'+i).val();
+       var val={'passage':passage,'mean':mean};
+       contents.push(val);
+    }
+    inform.contents=contents;
+
+    meaning=[]
+   for(var j=0;j<items;j++)
+   {
+      var types=$('#ty'+j).val();
+      var tyvalue={'types':types};
+      var meaningelement=[]
+      var box=$('#box'+j).val();
+      for(var k=0;k<box;k++)
+      {
+         var data={'data':$('#el'+j+k).val()};
+         meaningelement.push(data);
+      }
+      tyvalue.meaningelement=meaningelement;
+      meaning.push(tyvalue);
+   }
+   inform.meaning=meaning
+console.log(inform)
+
+    $.ajax({
+            type: "POST",
+            url: "/editorial/content/api/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success");
+            }
+        });
+
+    });
+
+</script>
+
+{%endblock%}

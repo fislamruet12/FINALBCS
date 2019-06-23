@@ -1,0 +1,259 @@
+{% extends 'Subinfo/base.html' %}
+
+
+{%block home%}
+
+         <nav id="menu-shop">
+
+            <div class="shop-nav">
+                <a href="/info/home/" class="title">Home</a>
+
+            </div>
+         </nav>
+
+{%endblock%}
+
+
+
+{%block mainnav%}
+
+
+ {% for catagory in rendervalue.subcatagory_set.all %}
+                     <a data-id="{{catagory.id}}" class="w-sub" href="#" style="font-size:180%">
+                            <div class="line"></div>
+                            <span>{{catagory.catalist}}</span>
+
+                        </a>
+
+   {%endfor%}
+
+{%endblock%}
+
+{%block subnav%}
+ {% for sbc in rendervalue.subcatagory_set.all %}
+             <ul class="sub-menu" data-id="{{sbc.id}}">
+                  <li class="page_item page-item-22 page_item_has_children">
+                      {% for cncat in sbc.contcatagory_set.all %}
+                      <a href="/info/home/catalog/{{userid}}/{{cncat.id}}/">{{cncat.contentlist}}</a>
+                      {%endfor%}
+
+                   </li>
+             </ul>
+                    {%endfor%}
+
+{%endblock%}
+
+{%block belowheader%}
+
+
+{% for rowelment in catalogs.contentelement_set.all %}
+  <div class="modal fade" id="{{rowelment.id}}" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+            <span style="font-size:200%">{{rowelment.title}}</span>
+        </div>
+        <div class="modal-body">
+
+            {% for qu in rowelment.question_set.all %}
+
+            <div id="questionid{{qu.id}}"><span style="font-size:170%">{{forloop.counter}}</span>. {{qu.title}}
+
+    <div class="radio">
+        <label>
+            <input type="radio" name="options{{qu.id}}" value="বীরবল" class="regular-radio" />{{qu.op1}}</label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options{{qu.id}}" value="ভিমরুল" class="regular-radio" />{{qu.op2}}</label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options{{qu.id}}" value="অনিলাদেবী" class="regular-radio" />{{qu.op3}}</label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options{{qu.id}}" value="যাযাবর" class="regular-radio" />{{qu.op4}}</label>
+    </div>
+
+                <div class="radio">
+        <label class="tooltips">Ans
+            <span class="tooltiptexts">{{qu.right}}</span>
+
+        </label>
+                    <label class="tooltips">Explain
+            <span class="tooltiptexts">{{qu.explain}}</span>
+
+        </label>
+                </div>
+
+    </div>
+
+            {%endfor%}
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{%endfor%}
+
+<div class="js-smooth-scroll">
+
+
+
+
+    <main id="single-event" class="exposition">
+
+<section class="about js-trigger-anim stagger" data-anim="basic-stagger-y">
+                <div class="inner">
+                    <div class="title-part inline js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                          <h2 class="section-title"></h2>
+                    </div>
+
+                        <h2 class="section-title">{{rendervalue.name}}</h2>
+<div class="about-c">
+        <div class="side-left supp-c col-32" style="border: 1px solid black;width:device-width; height:450px; overflow:scroll ;overflow-y:scroll; overflow-x:hidden;">
+            {%for sbc in rendervalue.subcatagory_set.all %}
+             <div class="supp w-words">
+                <p class="title-dot bigger js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">{{sbc.catalist}}</p>
+                <div class="tmce content smaller js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                    <div class="page" title="Page 1">
+<div class="layoutArea">
+<div class="column">
+<ul>
+    {% for content in sbc.contcatagory_set.all %}
+<li><a href="/info/home/catalog/{{userid}}/{{content.id}}/">{{content.contentlist}}</a></li>
+{%endfor%}
+</ul>
+</div>
+</div>
+</div>
+                </div>
+            </div>
+{%endfor%}
+
+
+        <div class="clear"></div>
+
+
+    </div>
+
+    <div class="side-right main col-60">
+        {%if split %}
+
+        {%else%}
+
+        <p class="title-dot bigger js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">Information is not added</h4></p>
+
+        {%endif%}
+
+        {% for rowelment in catalogs.contentelement_set.all %}
+
+                    <p class="title-dot section-mention js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">{{rowelment.title}}</p>
+
+        <div class="content tmce w-words js-anim" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+            <div class="page" title="Page 1">
+
+
+                {% for val in split %}
+                 {% for n in val %}
+                <p style="font-size:80%"><span style="color:red;">&#8594;</span> {{n}}</p>
+                 {%endfor%}
+                {%endfor%}
+
+ <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{rowelment.id}}">Open questions</button>
+  <br><br>
+
+</div>
+        </div>
+
+        {%endfor%}
+
+
+
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+                </div>
+            </section>
+    </main>
+</div>
+
+    {%endblock%}
+
+
+{%block main%}
+
+<section class="suggestions js-trigger-anim" data-anim="full-slideshow">
+
+        <div class="title-part inline inner">
+
+            <h2 class="section-title title-anim">Related Portion</h2>
+            <p class="section-mention mention-anim">Go for the future</p>
+
+        </div>
+
+        <div class="flex-content gallery-imgs">
+
+            <div class="slideshow full-image-slideshow full-product-slideshow define-height" data-type="gallery-imgs">
+
+                <div class="slideshow-cache">
+
+                    <div class="slider">
+      {% for sub in value %}
+    <div class="box-product js-anim box-link box elmt-anim border-hover " data-hover="100">
+
+
+
+        <div class="img-part">
+
+            <img width="768" height="512" src="{{sub.model_pic.url}}" class="cropping wp-post-image" alt="Chefs d&#039;oeuvre d&#039;Afrique" srcset="{{sub.model_pic.url}}" sizes="(max-width: 768px) 100vw, 768px" />        </div>
+
+        <div class="infos-part">
+            <div class="infos-c">
+                <p class="cat">{{sub.bio}}</p>
+                <a href="/info/home/{{sub.id}}/" class="title">{{sub.name}}</a>
+              <p class="cat">
+                  <a href="/info/home/{{sub.id}}/" >Go for details</a>
+              </p>
+                <!--                                            SI RUPTURE DE STOCK ???? -->
+            </div>
+        </div>
+    </div>
+                        {%endfor%}
+
+                    </div>
+                </div>
+
+
+                    <div class="nav-slideshow">
+
+                        <div class="buttons-c">
+                            <div class="button-nav prev"><span class="icon-arrow_prev"></span></div>
+                            <div class="button-nav next"><span class="icon-arrow_next"></span></div>
+                        </div>
+
+                    </div>
+                            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+{%endblock%}
+

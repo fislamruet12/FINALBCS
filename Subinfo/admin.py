@@ -1,0 +1,27 @@
+from django.contrib import admin
+
+from .models import modettests,bcsmodel,event,version,modelquestion,quote,contenttable,wordtime,word,imgs,Photo,subjects,subcatagory,contcatagory,contentelement,question,contenttabletitle,contentelementimage,contenttableinfo,types,tabletitle,tableinfo,table
+# Register your models here.
+admin.site.register(event)
+admin.site.register(modettests )
+admin.site.register(subjects)
+admin.site.register(quote)
+admin.site.register(subcatagory)
+admin.site.register(contcatagory)
+admin.site.register(contentelement)
+admin.site.register(question)
+admin.site.register(contenttableinfo)
+admin.site.register(contenttabletitle)
+admin.site.register(contentelementimage)
+admin.site.register(table)
+admin.site.register(tabletitle)
+admin.site.register(tableinfo)
+admin.site.register(Photo)
+admin.site.register(imgs)
+admin.site.register(types)
+admin.site.register(word)
+admin.site.register(wordtime)
+admin.site.register(contenttable)
+admin.site.register(bcsmodel)
+admin.site.register(version)
+admin.site.register(modelquestion)

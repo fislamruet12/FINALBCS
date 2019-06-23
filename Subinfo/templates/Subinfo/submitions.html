@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <title>Submission</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="{% static 'js/contents.js' %}" type="text/javascript"></script>
+
+
+    <script>
+    function TableE(c)
+    {
+      var x=document.getElementById("Econtrol");
+  var r=parseInt(x.value);
+   var display=$("#rowcol")
+   //alert(c);
+   output="<br>";
+   for(var j=0;j<r;j++){
+      output+="<div class='form-row'>";
+     for(var i=0;i<c;i++){
+                       output+="<div class='form-group col-md-"+12/c+"'>"+
+
+                            "<input type='text' id='row"+j+i+"' class='form-control' placeholder='row"+i+"'>"+
+                            "</div>";
+                            }
+
+                   output+= "</div>";
+            }
+   display.html(output);
+        }
+
+
+
+
+
+
+
+
+    </script>
+    <script>
+        function Table()
+        {
+             var x=document.getElementById("tablecontrol");
+   n=parseInt(x.value);
+   var display=$("#column")
+   output="";
+   for(var i =0;i<n;i++)
+   {
+                      output+= "<div class='form-group col-md-"+12/n+"'>"+
+                            "<input type='input' class='form-control' id='clm"+i+"' placeholder='clm"+i+"'>"+
+
+                          "</div>";
+   }
+   output+="<select id='Econtrol' onchange='TableE("+n+")' class='form-control' style='width: 16%;'>"+
+                        "<option selected>No of rows...</option>";
+                        for(var t=1;t<30;t++){
+                        output+="<option value='"+t+"'>"+t+"</option>";
+                        }
+
+                    "</select>";
+
+
+   display.html(output);
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <br>
+    <form id="new_element_drop1" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="row">
+            <div class="col-sm-4" style="background-color:#626969">
+
+                <div class="form-row">
+
+                    <input id="fileupload" type="file" name="file" multiple accept="image/jpeg,image/png"
+
+                           data-url="/info/basic-upload/"
+                           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                    <div class="form-group col-md-4">
+                        <label for="subjects">subject</label>
+                        <select id="subjects" onchange="catagory()" style="font-size: 15px;" class="custom-select"
+                                required>
+                            <option value="">..</option>
+                            <option value="1">One</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="subcata">catagory</label>
+                        <select id="subcata" onchange="subcatagory()" style="font-size: 15px;" class="custom-select">
+                            <option value="">..</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="cataE">catagory</label>
+                        <select id="cataE" style="font-size: 15px;" class="custom-select">
+                            <option value="">..</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="title" placeholder="title">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <textarea class="form-control" id="box" name="box" rows="4" placeholder="history"></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-11">
+
+                        <textarea class="form-control" id="content" rows="10" placeholder="content"></textarea>
+
+                    </div>
+                    <div class="form-group col-md-1">
+                        <select id="boxcontrol" onchange="myFunction()" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-3" style="background-color:#226969">
+
+                <div class="form-row">
+                    <label>Upload image</label>
+
+                    <input type="file" id="image-file0" onchange="fileS(0)" multiple accept="image/jpeg,image/png"/>
+                    <div class="form-group col-md-12" id="forms">
+
+
+                        <div class="form-row" id="imag">
+                            <img id="img0" height="70px" style="display:none"/>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-5" style="background-color:#426969">
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="tablecontrol">Table handler </label>
+                        <select id="tablecontrol" onchange="Table()" class="form-control">
+                            <option selected>No of column...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <label>title</label>
+                        <input type="text" class="form-control" id="table-title" placeholder="table title">
+                    </div>
+                </div>
+                <label>column title</label>
+                <div class="form-row" id="column">
+                    <div class="form-group col-md-5">
+
+                    </div>
+                </div>
+                <div id="rowcol">
+
+
+                </div>
+
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">upload</button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+      subject();
+
+
+
+</script>
+<script>
+// will hold the local preview url
+var _PREVIEW_URL;
+var file1;
+/* Selected File has changed */
+function fileS(y){
+    // user selected file
+    //alert(y);
+    var x=document.querySelector("#image-file"+y);
+
+    var len=x.files.length;
+  var display=$("#forms")
+   output="<br>";
+   for(var i =0;i<len;i++)
+   {
+                      output+= "<div class='form-row'><div class='form-group col-md-10'>";
+                      output+="<img id='img"+i+"' height='70px'></div>";
+                      output+= "<div class='form-group col-md-2'>"+
+                               "<h2><a href='#' id='imgd"+i+"' onclick='disables("+i+")'>&#10005</a></h2></div></div>";
+
+
+   }
+
+   display.html(output);
+
+
+
+        for(var j=0;j<len;j++){
+         var file = x.files[j];
+    var mime_types = [ 'image/jpeg', 'image/png' ];
+
+    // validate MIME
+    if(mime_types.indexOf(file.type) == -1) {
+        alert('Error : Incorrect file type');
+        return;
+    }
+
+    // validate file size
+    if(file.size > 2*1024*1024) {
+        alert('Error : Exceeded size 2MB');
+        return;
+    }
+
+    // validation is successful
+
+    // hide upload dialog button
+
+
+    // object url
+    _PREVIEW_URL = URL.createObjectURL(file);
+
+
+
+    // set src of image and show
+    document.querySelector("#img"+j).setAttribute('src', _PREVIEW_URL);
+    document.querySelector("#img"+j).setAttribute('value', file);
+    document.querySelector("#img"+j).style.display = 'inline-block';
+    document.querySelector("#imgd0").disabled =true;
+}
+}
+
+
+    $(document).on('submit','#new_element_drop',function(e){
+    e.preventDefault();
+    var id=parseInt($('#cataE').val());
+
+    var file=$('#filecontrol').val();
+
+    var clmn=$('#tablecontrol').val();
+    var rown=$('#Econtrol').val();
+
+     var tbinfo=$('#Econtrol').val();
+
+    var ctitle=$('#title').val();
+
+    var box=$('#box').val();
+
+    var content=$('#content').val();
+
+      var tabletitle=$('#table-title').val();
+    var i=0,j=0;
+    var img=$('#row'+i+j).val();
+    console.log(img);
+    alert(img);
+
+    var inform = {"id":4,"contentlist":"Samplename"};
+    var contents=[];
+    inform.contents=contents;
+
+  var content = {
+  "title": ctitle,
+  "boxcontent": box,
+  "content":content
+}
+
+var images=[];
+var image={
+
+     "content_pic":file1,
+     "title": "hello"
+};
+images.push(image)
+content.images=images;
+alert(file1)
+console.log(img)
+ var contenttable=[];
+
+ var contenttables={
+    "cl1": "name",
+    "cl2": "page",
+    "cl3": "subcontinet",
+    "cl4": "hello",
+    "cl5": "given",
+    "cl6": "given"
+ };
+
+contenttables.title="null"+tabletitle;
+
+var tableinfo=[];
+
+for(var i=0;i<rown;i++){
+  var tableinfos={};
+   var inf=[];
+  for(var j=0;j<6;j++)
+  {
+     inf[j]=$("#row"+i+j).val();
+   }
+tableinfos={
+      "tl1": inf[0],
+      "tl2": inf[1],
+      "tl3": inf[2],
+      "tl4": inf[3],
+      "tl5": inf[4],
+      "tl6": inf[5]
+      };
+   tableinfo.push(tableinfos);
+}
+
+contenttables.tableinfo=tableinfo;
+contenttable.push(contenttables);
+content.contenttable=contenttable
+inform.contents.push(content);
+
+    console.log(inform)
+
+    $.ajax({
+            type: "POST",
+            url: "/info/home/api/4/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success");
+            }
+        });
+
+
+    });
+
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+     var dt=new FormData()
+
+     alert(123);
+	// processData & contentType should be set to false
+	alert(file1)
+    $.ajax({
+        type: 'POST',
+        url: '/info/postimg/',
+        data:{
+        title:'titlessdd',
+        box:$("#image-file0").get(0).files[0],
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+    },
+
+        success: function(response) {
+
+        },
+        error: function(response) {
+
+        },
+         processData: false,
+        contentType: false
+    });
+
+
+    });
+
+function disables(d)
+{
+  var element = document.getElementById("img"+d);
+  var element1 = document.getElementById("imgd"+d);
+                element.parentNode.removeChild(element);
+                element1.parentNode.removeChild(element1);
+
+
+
+}
+
+
+
+</script>
+
+
+<script>
+function myFunction() {
+var x1=document.getElementById("boxcontrol").value;
+   str="";
+   n=parseInt(x1);
+   for(var x=0;x<n;x++)
+   {
+    if(x==n-1)
+    str+="<c></c>-  <h></h> ";
+    else
+    str+="<c></c>-  <h></h>.\n";
+   }
+  var x2 =document.getElementById("content");
+  if(x2.value)
+  x2.value=x2.value+".\n"+str;
+  else
+  x2.value=str;
+
+  }
+
+
+
+</script>
+
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% extends 'Subinfo/sbase.html' %}
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+        <span class="glyphicon glyphicon-trash"></span> Clear Page
+    </button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1 class="page-header">
+        Word
+        <small>/ Information</small>
+    </h1>
+
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <input type="text"   class="form-control" id="word" placeholder="word" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="type" placeholder="word type" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <textarea class="form-control" id="exp" name="exp" rows="4" placeholder="Explain" required></textarea>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="sn" placeholder="synonyms" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="an" placeholder="antonyms" required>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <textarea class="form-control" id="quote" name="quate" rows="4" placeholder="Quote" required></textarea>
+
+        </div>
+
+    </div>
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+    alert(12)
+    var word=$('#word').val();
+    var type=$('#type').val();
+    var exp=$('#exp').val();
+    var sn=$('#sn').val();
+    var an=$('#an').val();
+    var quote=$('#quote').val();
+
+
+
+      var inform={
+                "word":word,
+                "type": type,
+                "exp": exp,
+                "sn": sn,
+                "an": an,
+                "quate": quote,
+      };
+
+
+
+    $.ajax({
+            type: "POST",
+            url: "/info/subword/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("successfully added ");
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+</script>
+<script>
+    subject();
+
+</script>
+{%endblock%}

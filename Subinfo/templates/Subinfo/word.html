@@ -1,0 +1,72 @@
+{% extends 'Subinfo/sbase.html' %}
+{% block title %}
+<title> Your Daily Remainder</title>
+{%endblock%}
+
+{% block head %}
+
+<a class="navbar-brand" href="#">Your Today's Newspaper Word . It Will be Changed Every 6 Hours </a>
+
+ {% if request.user.is_superuser %}
+    <a  href="/info/subword/">ADD</a>
+
+{%endif %}
+
+{%endblock%}
+
+{% block forms %}
+
+ {% if request.user.is_authenticated %}
+ <br><br><br>
+
+<h1 class="page-header">
+
+    <small style="font-size: 50%;color: #801717;">{{words.quate}} </small>
+</h1>
+<h1 class="page-header">
+
+</h1>
+<div class="row">
+
+    <table class="table" style="background-color: #f8f8f8;">
+        <thead>
+        <tr>
+
+            <th scope="col">Word</th>
+            <th scope="col">type</th>
+            <th scope="col">synonyms</th>
+            <th scope="col">antonyms</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+
+
+
+            <td title="{{words.exp}}"><a href="#">{{words.word}}</a></td>
+            <td>{{words.type}}</td>
+            <td>{{words.sn}}</td>
+            <td>{{words.an}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+ <br>
+{%else%}
+  <div class="row">
+      <h1 class="page-header">
+
+        <small>You have to Login For this Feature</small>
+    </h1>
+      <div class="form-group col-md-6">
+
+            <a href="/info/login/?next={{request.path}}" class="link">LOGIN</a>
+        </div>
+
+  </div>
+
+{%endif%}
+
+{%endblock%}

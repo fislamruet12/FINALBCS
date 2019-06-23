@@ -1,0 +1,21 @@
+<ul>
+
+
+    {%for p in val2 %}
+    <h5>{{p.title}}:</h5>
+    <div class="w3-code htmlHigh notranslate w3-border-green">
+        {{p.content|truncatechars:450}}
+        <ul>
+
+            {% for tv in p.contenttable_set.all%}
+            <li>{{tv.qu}} : {{tv.ans}}</li>
+            {%endfor%}
+        </ul>
+
+    </div>
+    <a href="/info/home/displaydetail/{{userid}}/{{p.id}}/"
+       class="w3-button w3-theme w3-hover-green w3-hover-shadow">Go For Details &raquo;</a>
+    {%endfor%}
+
+
+</ul>

@@ -1,0 +1,30 @@
+{% extends 'Subinfo/base.html' %}
+
+
+
+
+{%block belowheader%}
+
+<br><br><br><br>
+
+
+
+{%endblock%}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+ <form method="post">
+    {% csrf_token %}
+     <fieldset>
+         <h2>Login Here</h2>
+    {{ form|crispy }}
+         <input type="hidden" name="next" value="{{request.GET.next}}"/>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+         <!--<a href="/info/register/"> Don't have an account?</a>-->
+         <br>
+         <br>
+     </fieldset>
+  </form>
+{% endblock %}

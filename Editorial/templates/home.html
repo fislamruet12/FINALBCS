@@ -1,0 +1,134 @@
+{% load static %}
+{%load editorial_tags %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block title %}
+
+    {%endblock%}
+    <link rel="icon" href="{%static 'photos/favicons.ico'%}" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script src="{% static 'js/contents.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/editorial/editorial.js' %}" type="text/javascript"></script>
+
+
+
+    <style type="text/css">
+      .page-header {
+        margin-top: 0;
+      }
+
+
+
+
+    </style>
+</head>
+<body style="color: #150b0b;background-color: #c1c1c1;">
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <!--<a class="navbar-brand" href="/">Photos Library</a>-->
+               {% block head %}
+
+               {%endblock%}
+
+<a class="navbar-brand" href="#">Editorials </a>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="">
+
+{% if request.user.is_authenticated %}
+<!-- Button trigger modal -->
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-content" style="padding-left: 50px;padding-right: 20px;" id="md_ed">
+
+        </div>
+    </div>
+</div>
+<div class="row" id="editorial">
+
+    {%for ed in editorials %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{{ed.title}}</h3>
+
+                   {% show_latest ed.id %}
+
+                    <a href="#" onclick="modal_edit(val={{ed.id}})" data-toggle="modal"
+                       data-target=".bd-example-modal-lg"><h5>See More</h5></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {%endfor%}
+</div>
+
+
+<script>
+
+                      $(window).scroll(function() {
+                        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+                              alert(123);
+
+                               }
+                           });
+
+</script>
+{%else%}
+<div class="row">
+    <h1 class="page-header">
+
+        <small>You have to Login For this Feature</small>
+    </h1>
+    <div class="form-group col-md-6">
+
+        <a href="/info/login/?next={{request.path}}" class="link">LOGIN</a>
+    </div>
+
+</div>
+
+
+
+{%endif%}
+
+
+
+</div>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/editorial/editorial.js' %}" type="text/javascript"></script>
+
+
+<script src="{% static 'photos/js/basic-upload.js' %}"></script>
+
+
+</body>
+</html>

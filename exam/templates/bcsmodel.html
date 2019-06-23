@@ -1,0 +1,76 @@
+{% extends 'Subinfo/sbase.html' %}
+
+{% block head %}
+<a class="navbar-brand" href="/info/subtopic/">upload_topic</a>
+<a class="navbar-brand" href="/info/basic-upload/">upload_content</a>
+{%endblock%}
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>preliminary test number:</label>
+            <input type="text" class="form-control" id="title" placeholder="number" required>
+        </div>
+    </div>
+
+
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+    var qtitle=$('#title').val();
+
+    var inform = {"name":qtitle};
+
+    $.ajax({
+            type: "POST",
+            url: "/info/home/bcmodel/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success added ");
+                setTimeout(3000);
+                //location.replace("/exam/modeltestsubmit/")
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+
+</script>
+<script>
+    subject();
+
+
+
+</script>
+{%endblock%}

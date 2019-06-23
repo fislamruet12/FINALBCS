@@ -1,0 +1,93 @@
+{% extends 'Subinfo/sbase.html' %}
+
+{% block head %}
+<a class="navbar-brand" href="/info/subtopic/">upload_topic</a>
+<a class="navbar-brand" href="/info/basic-upload/">upload_content</a>
+{%endblock%}
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+
+<div class="row">
+    <div class="form-group col-md-3">
+
+            <label for="version">preliminary test number</label>
+            <select id="version" class="form-control" >
+                <option value="">..</option>
+                <option>1</option>
+
+            </select>
+
+        </div>
+
+
+</div>
+    <div class="row">
+
+        <div class="form-group col-md-6">
+            <label>modeltest version Number:</label>
+            <input type="text" class="form-control" id="title" placeholder="modeltest_1" required>
+        </div>
+
+    </div>
+
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+
+<script>
+
+</script>
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+    var qtitle=$('#title').val();
+    var version=$('#version').val();
+
+    var inform = {"versionname":version+"_"+qtitle,"name":version};
+
+    $.ajax({
+            type: "POST",
+            url: "/info/home/modelversion/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success added ");
+                setTimeout(3000);
+              //  location.replace("/exam/modeltestsubmit/")
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+
+</script>
+<script>
+
+     event();
+
+</script>
+{%endblock%}

@@ -1,0 +1,8 @@
+
+
+{% for cnt in content %}
+{% if forloop.counter < 4 %}
+<h5>{{cnt.passage}}</h5>
+<h5>{{cnt.mean}}</h5>
+{% endif %}
+{% endfor %}

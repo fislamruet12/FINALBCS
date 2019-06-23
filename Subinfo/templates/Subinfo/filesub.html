@@ -1,0 +1,326 @@
+{% extends 'Subinfo/sbase.html' %}
+{% block head %}
+<a class="navbar-brand" href="/info/subtopic/">upload_topic</a>
+<a class="navbar-brand" href="/info/basic-uploadq/">upload_question</a>
+{%endblock%}
+
+
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1 class="page-header">
+        Text
+        <small>/ Basic Upload</small>
+    </h1>
+    <div class="row">
+
+        <div class="col-md-4">
+
+
+            <label for="subjects">subject</label>
+            <select id="subjects" onchange="catagory()" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+        </div>
+        <div class="col-md-4">
+
+
+            <label for="subjects">subject</label>
+            <select id="subcata" onchange="subcatagory()" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+        </div>
+        <div class="col-md-4">
+
+
+            <label for="subjects">subject</label>
+            <select id="cataE" class="form-control" required>
+                <option value="">..</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="title" placeholder="title" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <textarea class="form-control" id="box" name="box" rows="4" placeholder="history" required></textarea>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-11">
+
+            <textarea class="form-control" id="content" rows="2" placeholder="content" required></textarea>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md-10">
+
+            <div class="row" style="background-color: #f5f0f0;" id ="qucontrol">
+                <div class="form-group col-md-8">
+
+                    <textarea class="form-control" id="qu1" rows="2" placeholder="Question" required></textarea>
+
+                </div>
+                 <div class="form-group col-md-4">
+
+                    <textarea class="form-control" id="ans1" rows="2" placeholder="answer" required></textarea>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <select id="boxcontrol" onchange="myFunction()" class="form-control">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">7</option>
+                <option value="10">10</option>
+                <option value="15">12</option>
+                <option value="15">14</option>
+                <option value="15">16</option>
+                <option value="15">18</option>
+                <option value="15">20</option>
+                <option value="15">25</option>
+
+            </select>
+        </div>
+    </div>
+
+    <h1 class="page-header">
+        Photos
+        <small>/ Basic Upload</small>
+    </h1>
+    <div class="row">
+        <div class="col-md-9">
+
+            <div style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-primary js-upload-photos">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+                </button>
+                <input id="fileupload" type="file" name="file" multiple accept="image/jpeg,image/png"
+                       style="display: none;"
+                       data-url="/info/basic-upload/"
+                       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+            </div>
+
+            <table id="gallery" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Photo</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <h1 class="page-header">
+        Tables
+        <small>/ Basic Upload</small>
+    </h1>
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="col-sm-12">
+
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="tablecontrol">Table handler </label>
+                        <select id="tablecontrol" onchange="Table()" class="form-control">
+                            <option value="">No of column...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <br>
+                    </div>
+                </div>
+
+                <div class="form-row" id="column">
+
+
+                </div>
+                <div id="rowcol">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+
+    var id=parseInt($('#cataE').val());
+    var ctitle=$('#title').val();
+    var box=$('#box').val();
+    var content=$('#content').val();
+
+
+    var tabletitles=$('#table-title').val();
+    var clmn=$('#tablecontrol').val();
+    var rown=$('#Econtrol').val();
+    var boxcontrol=parseInt($('#boxcontrol').val());
+    var nr,nc;
+   if(clmn=="")
+    {
+      nr=1;
+      nc=1;
+      tabletitles="Value";
+    }else
+    {
+      nc=parseInt(clmn)
+      nr=parseInt(rown)
+    }
+
+
+
+    var inform = {"id":id,"contentlist":"Samplename"};
+    var contents=[];
+
+
+
+  var content = {
+  "title": ctitle,
+  "boxcontent": box,
+  "content":content
+}
+
+contentstables=[];
+
+  for(var i=0;i<boxcontrol;i++)
+  {
+     var answ={'qu':$('#qu'+i).val(),'ans':$('#ans'+i).val()};
+       contentstables.push(answ);
+  }
+
+ var tables=[];
+
+  var tabletitle = [];
+  var val;
+   for(var i=0;i<nc;i++)
+   {
+      if(clmn==""){
+     val="country                 city";}
+       else{
+       val=$('#clm'+i).val();
+       }
+     title={"col":val};
+     tabletitle.push(title);
+   }
+
+  var tableinfo = [];
+
+  for(var i=0;i<nr;i++)
+   {
+      for(var j=0;j<nc;j++){
+       if(clmn==""){
+     val="Bangladesh               Dhaka";}
+       else{
+       val=$('#row'+i+j).val();
+       }
+     colinfo={"col":val};
+     tableinfo.push(colinfo);
+     }
+
+   }
+
+   var addtable={"title":tabletitles};
+   addtable.tabletitle=tabletitle;
+   addtable.tableinfo=tableinfo;
+   tables.push(addtable);
+   content.tables=tables;
+   content.contentstables=contentstables;
+   contents.push(content);
+   inform.contents=contents;
+   console.log(inform)
+
+    $.ajax({
+            type: "POST",
+            url: "/info/home/update/api/4/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success");
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+</script>
+<script>
+    subject();
+
+
+</script>
+{%endblock%}

@@ -1,0 +1,129 @@
+{% extends 'Subinfo/sbase.html' %}
+
+{% block head %}
+<a class="navbar-brand" href="/info/basic-upload/">upload_content</a>
+<a class="navbar-brand" href="/info/basic-uploadq/">upload_question</a>
+{%endblock%}
+{% block forms %}
+<button type="submit" onclick="reload()" class="btn btn-danger pull-right">
+    <span class="glyphicon glyphicon-trash"></span> Clear Page
+</button>
+
+<form id="new_element_drop1" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1 class="page-header">
+        Text
+        <small>/ Basic Upload</small>
+    </h1>
+    <div class="row">
+
+        <div class="col-md-6">
+
+
+            <label for="subjects">subject</label>
+            <select id="subjects" onchange="catagory()" class="form-control" required>
+                <option value="" selected>Choose</option>
+
+            </select>
+
+
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="form-group col-md-11">
+
+            <textarea class="form-control" id="subcata" rows="1" placeholder="subject catagory here" required></textarea>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md-10">
+
+            <div class="row" style="background-color: #f5f0f0;" id="qucontrol">
+
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <select id="boxcontrol" onchange="myFunctionCata()" class="form-control" required>
+                <option value="" selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+
+            </select>
+        </div>
+    </div>
+
+
+    <button type="submit" style="padding: 15px 50px;" class="btn btn-primary">upload</button>
+
+
+</form>
+
+{%endblock%}
+
+
+{% block formsjs %}
+<script>
+
+    $(document).on('submit','#new_element_drop1',function(e){
+    e.preventDefault();
+
+
+    var id=parseInt($('#subjects').val());
+    var subcata=$('#subcata').val();
+    var box=parseInt($('#boxcontrol').val());
+
+
+
+   inform={'id':id,'catalist':subcata}
+   catagory=[]
+   for(var i=0;i<box;i++)
+   {
+       var catas=$('#catas'+i).val();
+       var ct={'contentlist':catas};
+       catagory.push(ct);
+   }
+inform.catagory=catagory;
+
+    $.ajax({
+            type: "POST",
+            url: "/info/subtopic/",
+            dataType: 'json',
+            data:{inform: JSON.stringify(inform) },
+            success: function(msg){
+                alert("success");
+            }
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+
+</script>
+<script>
+    subject();
+
+
+
+</script>
+{%endblock%}
