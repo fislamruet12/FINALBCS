@@ -1,12 +1,12 @@
-from  django.conf.urls import url
+from  django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .import views
 urlpatterns=[
-    url('content/api/$',views.editorialView.as_view(),name="editorialView"),
-    url('content/api/(?P<id>\d+)/$', views.editorialView.as_view(), name="ApieditorialView"),
-    url('upload/$', views.upload, name="upload"),
-    url('content/$', views.home, name="home"),
+    path('content/api/',views.editorialView.as_view(),name="editorialView"),
+    path('content/api/(?P<id>\d+)/', views.editorialView.as_view(), name="ApieditorialView"),
+    path('upload/', views.upload, name="upload"),
+    path('content/', views.home, name="home"),
 
 ]
 
