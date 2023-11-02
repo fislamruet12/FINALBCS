@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .import views
 urlpatterns = [
-    path('start/(?P<userid>\d+)/',views.examination,name='examination'),
+    path('start/<int:userid>/',views.examination,name='examination'),
     path('modeltestsubmit/', views.modeltestsubmit, name='modeltestsubmit'),
     path('bcsmodelsubmit/', views.bcsmodelsubmit, name='modeltestsubmit'),
     path('bcsversionsubmit/', views.bcsversionsubmit, name='bcsversionsubmit'),

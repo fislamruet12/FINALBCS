@@ -134,6 +134,7 @@ def testings(request, userid, catid):
     return render(request, 'Subinfo/testing.html', context)
 
 def subtestings(request, userid, subid):
+    
 
     rendervalue = subjects.objects.get(pk=userid)
     subcata=subcatagory.objects.get(pk=subid)
